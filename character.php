@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php include_once 'resources/includes/dbh.inc.php'; ?>
+    <?php
+        $id = $_REQUEST['id'];
+        $object = new dbh;
+        $object->connect();
+        $data = $object->query("SELECT * FROM `characters`WHERE id = $id");
+    ?>
     <meta charset="UTF-8">
-    <title>Character - Bowser</title>
+    <title>Character - <?php print $data[0]['name']; ?></title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="resources/css/style.css" rel="stylesheet"/>
 </head>
 <body>
-<header><h1>Bowser</h1>
-    <a class="backbutton" href="index.html"><i class="fas fa-long-arrow-alt-left"></i> Terug</a></header>
+<header><h1><?php print $data[0]['name']; ?></h1>
+    <a class="backbutton" href="index.php"><i class="fas fa-long-arrow-alt-left"></i> Terug</a></header>
 <div id="container">
     <div class="detail">
         <div class="left">
-            <img class="avatar" src="resources/images/bowser.jpg">
-            <div class="stats" style="background-color: yellowgreen">
+            <img class="avatar" src="resources/images/<?php print $data[0]['avatar']; ?>">
+            <div class="stats" style="background-color: <?php print $data[0]['color']; ?>">
                 <ul class="fa-ul">
-                    <li><span class="fa-li"><i class="fas fa-heart"></i></span> 10000</li>
-                    <li><span class="fa-li"><i class="fas fa-fist-raised"></i></span> 400</li>
-                    <li><span class="fa-li"><i class="fas fa-shield-alt"></i></span> 100</li>
+                    <li><span class="fa-li"><i class="fas fa-heart"></i></span> <?php print $data[0]['health']; ?></li>
+                    <li><span class="fa-li"><i class="fas fa-fist-raised"></i></span> <?php print $data[0]['attack']; ?></li>
+                    <li><span class="fa-li"><i class="fas fa-shield-alt"></i></span> <?php print $data[0]['defense']; ?></li>
                 </ul>
                 <ul class="gear">
-                    <li><b>Weapon</b>: Fire Breath</li>
-                    <li><b>Armor</b>: Giant Shell</li>
+                    <li><b>Weapon</b>: <?php print $data[0]['weapon']; ?></li>
+                    <li><b>Armor</b>: <?php print $data[0]['armor']; ?></li>
                 </ul>
             </div>
         </div>
         <div class="right">
             <p>
-                Bowser or King Koopa, is a fictional character and the main antagonist of Nintendo's Mario franchise. In
-                Japan, the character bears the title of Great Demon King. In the U.S., the character was first referred
-                to as "Bowser, King of the Koopas" and "the sorcerer king" in the instruction manual.<br/>
-                <br/>
-                Bowser is the leader of the turtle-like Koopa race, and has been the archenemy of Mario since his first
-                appearance, in the 1985 video game Super Mario Bros.<br/>
-                <br/>
-                His ultimate goals are to kidnap Princess Peach, defeat Mario, and conquer the Mushroom Kingdom. Since
-                his debut, he has appeared in almost every Mario franchise game, usually serving as the main antagonist.
-                Bowser is voiced by Kenny James.
+               <?php $bio = explode("\n", $data[0]['bio']);
+                    foreach($bio as $string){
+                        print $string."<br>";
+                    }
+                ?>
             </p>
         </div>
         <div style="clear: both"></div>
     </div>
 </div>
-<footer>&copy; [jenaam] 2020</footer>
+<footer>&copy; Max Baardman 2020</footer>
 </body>
 </html>
