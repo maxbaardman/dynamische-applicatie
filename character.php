@@ -27,8 +27,12 @@
                     <li><span class="fa-li"><i class="fas fa-shield-alt"></i></span> <?php print $data[0]['defense']; ?></li>
                 </ul>
                 <ul class="gear">
-                    <li><b>Weapon</b>: <?php print $data[0]['weapon']; ?></li>
-                    <li><b>Armor</b>: <?php print $data[0]['armor']; ?></li>
+                    <?php if($data[0]['weapon'] != null){?>
+                        <li><b>Weapon</b>: <?php print $data[0]['weapon']; ?></li>
+                   <?php }?>
+                    <?php if($data[0]['armor'] != null){?>
+                        <li><b>Armor</b>: <?php print $data[0]['armor']; ?></li>
+                   <?php }?>
                 </ul>
             </div>
         </div>
